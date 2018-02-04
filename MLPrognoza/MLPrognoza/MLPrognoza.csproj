@@ -90,6 +90,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MLPrognoza.Data\MLPrognoza.Data.csproj">
+      <Project>{fdf71704-da83-4428-88bc-efd2991cb808}</Project>
+      <Name>MLPrognoza.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

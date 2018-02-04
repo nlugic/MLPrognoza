@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MLPrognoza.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,11 @@ namespace MLPrognoza
         public formGlavna()
         {
             InitializeComponent();
+        }
+
+        private void btnStartDownload_Click(object sender, EventArgs e)
+        {
+            FileDownloader.DownloadWeatherData(nudYear.Value.ToString(), pbDownload);
         }
     }
 }
