@@ -30,7 +30,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace CSVGenerator
+namespace MLPrognoza.Data
 {
     public class ISHParser
     {
@@ -330,38 +330,14 @@ namespace CSVGenerator
                 + "\n";
 
 
-        public static void Main(string[] args)
+        public static void ConvertISHFile(string fileName)
         {
             //        logIt(fDebug, iPROD, false, "---------------------------- Begin "+sProgramName);          // Append output to log.
             //        logIt(fDebug, iPROD, false, "Number of args found=["+args.Length+"]");                    // Append output to log.
 
             // Process args
-            if (args.Length <= 1)
-            {
-                bStdErr = true;
-                logIt(fDebug, iPROD, false, "Error. Input and Output filenames required.");            // Append output to log.
-                Environment.Exit(77);
-            }
-
-            if (args.Length >= 2)
-            {
-                sInFileName = args[0];
-                sOutFileName = args[1];
-            }
-
-            if (args.Length >= 3)
-            {
-                if (args[2].Equals("0") || args[2].Equals("1"))
-                    iLogLevel = int.Parse(args[2]);                      // Safe to convert to int.
-                else
-                    logIt(fDebug, iPROD, false, "Invalid log message level parameter=[" + args[2] + "].  Must be 0 or 1.  Defaulting to [" + iLogLevel + "]");
-            }
-
-            if (args.Length >= 4)
-                p_sFilter1 = args[3];
-
-            if (args.Length >= 5)
-                p_sFilter2 = args[4];
+            sInFileName = fileName;
+            sOutFileName = fileName + ".csv";
 
             //        sOutFileName  = sInFileName+".java.out";
 
@@ -753,8 +729,8 @@ namespace CSVGenerator
             {
                 sOC1 = p_sRecd.Substring(iOC1_IndexOf, iOC1_Length);
                 sOC1_Fill1 = sOC1.Substring(1, 3);  // 3
-                sOC1_Gus = sOC1.Substring(3, 5);  // 4
-                sOC1_Fill2 = sOC1.Substring(7, 2);  // 1
+                sOC1_Gus = sOC1.Substring(3, 4);  // 4
+                sOC1_Fill2 = sOC1.Substring(7, 1);  // 1
 
                 if (sOC1_Gus.Equals("9999"))
                     sOC1_Gus = "";
@@ -888,8 +864,8 @@ namespace CSVGenerator
             {
                 sMW1 = p_sRecd.Substring(iMW1_IndexOf, iMW1_Length);
                 sMW1_Fill1 = sMW1.Substring(1, 3);  // 3
-                sMW1_Ww = sMW1.Substring(3, 3);  // 2
-                sMW1_Fill2 = sMW1.Substring(5, 2);  // 1
+                sMW1_Ww = sMW1.Substring(3, 2);  // 2
+                sMW1_Fill2 = sMW1.Substring(5, 1);  // 1
                                                     //                        Console.WriteLine("MW1=["+sMW1+"] Ww=["+sMW1_Ww+"]");
             }
         }  // End of getMW1
@@ -909,8 +885,8 @@ namespace CSVGenerator
             {
                 sMW2 = p_sRecd.Substring(iMW2_IndexOf, iMW2_Length);
                 sMW2_Fill1 = sMW2.Substring(1, 3);  // 3
-                sMW2_Ww = sMW2.Substring(3, 3);  // 2
-                sMW2_Fill2 = sMW2.Substring(5, 2);  // 1
+                sMW2_Ww = sMW2.Substring(3, 2);  // 2
+                sMW2_Fill2 = sMW2.Substring(5, 1);  // 1
                                                     //                        Console.WriteLine("MW2=["+sMW2+"] Ww=["+sMW2_Ww+"]");
             }
         }  // End of getMW2
@@ -930,8 +906,8 @@ namespace CSVGenerator
             {
                 sMW3 = p_sRecd.Substring(iMW3_IndexOf, iMW3_Length);
                 sMW3_Fill1 = sMW3.Substring(1, 3);  // 3
-                sMW3_Ww = sMW3.Substring(3, 3);  // 2
-                sMW3_Fill2 = sMW3.Substring(5, 2);  // 1
+                sMW3_Ww = sMW3.Substring(3, 2);  // 2
+                sMW3_Fill2 = sMW3.Substring(5, 1);  // 1
                                                     //                        Console.WriteLine("MW3=["+sMW3+"] Ww=["+sMW3_Ww+"]");
             }
         }  // End of getMW3
@@ -951,8 +927,8 @@ namespace CSVGenerator
             {
                 sMW4 = p_sRecd.Substring(iMW4_IndexOf, iMW4_Length);
                 sMW4_Fill1 = sMW4.Substring(1, 3);  // 3
-                sMW4_Ww = sMW4.Substring(3, 3);  // 2
-                sMW4_Fill2 = sMW4.Substring(5, 2);  // 1
+                sMW4_Ww = sMW4.Substring(3, 2);  // 2
+                sMW4_Fill2 = sMW4.Substring(5, 1);  // 1
                                                     //            logIt(fDebug, iDEBUG, false, "sInFileName=["+sInFileName+"] DateTime=["+sConcat+"] sMW4_Ww=["+sMW4_Ww+"]");     // temporary - ras
             }
         }  // End of getMW4
@@ -972,8 +948,8 @@ namespace CSVGenerator
             {
                 sAY1 = p_sRecd.Substring(iAY1_IndexOf, iAY1_Length);
                 sAY1_Fill1 = sAY1.Substring(1, 3);  // 3
-                sAY1_Pw = sAY1.Substring(3, 2);  // 1
-                sAY1_Fill2 = sAY1.Substring(4, 5);  // 4
+                sAY1_Pw = sAY1.Substring(3, 1);  // 1
+                sAY1_Fill2 = sAY1.Substring(4, 4);  // 4
                                                     //                        Console.WriteLine("AY1=["+sAY1+"] Pw=["+sAY1_Pw+"]");
             }
         }  // End of getAY1
@@ -995,10 +971,10 @@ namespace CSVGenerator
             {
                 sMA1 = p_sRecd.Substring(iMA1_IndexOf, iMA1_Length);
                 sMA1_Fill1 = sMA1.Substring(1, 3);      // 3
-                sMA1_Alt = sMA1.Substring(3, 6);      // 5
-                sMA1_Fill2 = sMA1.Substring(8, 2);      // 1
-                sMA1_Stp = sMA1.Substring(9, 6);     // 5
-                sMA1_Fill3 = sMA1.Substring(14, 2);    // 1
+                sMA1_Alt = sMA1.Substring(3, 5);      // 5
+                sMA1_Fill2 = sMA1.Substring(8, 1);      // 1
+                sMA1_Stp = sMA1.Substring(9, 5);     // 5
+                sMA1_Fill3 = sMA1.Substring(14, 1);    // 1
 
                 if (sMA1_Alt.Equals("99999"))
                     sMA1_Alt = "";
@@ -1060,9 +1036,9 @@ namespace CSVGenerator
             {
                 sKA1 = p_sRecd.Substring(iKA1_IndexOf, iKA1_IndexOf + iKA1_Length);
                 sKA1_Fill1 = sKA1.Substring(1, 6);   // 6
-                sKA1_Code = sKA1.Substring(6, 2);   // 1
-                sKA1_Temp = sKA1.Substring(7, 6);  // 5
-                sKA1_Fill2 = sKA1.Substring(12, 2); // 1
+                sKA1_Code = sKA1.Substring(6, 1);   // 1
+                sKA1_Temp = sKA1.Substring(7, 5);  // 5
+                sKA1_Fill2 = sKA1.Substring(12, 1); // 1
                                                      //                        Console.WriteLine("KA1=["+sKA1+"] Code=["+sKA1_Code+"] Temp=["+sKA1_Temp+"]");
                 if (sKA1_Temp.Equals("+9999"))
                     sKA1_Temp = "";
@@ -1114,9 +1090,9 @@ namespace CSVGenerator
             {
                 sKA2 = p_sRecd.Substring(iKA2_IndexOf, iKA2_Length);
                 sKA2_Fill1 = sKA2.Substring(1, 6);   // 6
-                sKA2_Code = sKA2.Substring(6, 2);   // 1
-                sKA2_Temp = sKA2.Substring(7, 6);  // 5
-                sKA2_Fill2 = sKA2.Substring(12, 2); // 1
+                sKA2_Code = sKA2.Substring(6, 1);   // 1
+                sKA2_Temp = sKA2.Substring(7, 5);  // 5
+                sKA2_Fill2 = sKA2.Substring(12, 1); // 1
                                                      //                        Console.WriteLine("KA2=["+sKA2+"] Code=["+sKA2_Code+"] Temp=["+sKA2_Temp+"]");
                 if (sKA2_Temp.Equals("+9999"))
                     sKA2_Temp = "";
@@ -1170,10 +1146,10 @@ namespace CSVGenerator
             {
                 sAA1 = p_sRecd.Substring(iAA1_IndexOf, iAA1_Length);
                 sAA1_Fill1 = sAA1.Substring(1, 3);   // 3
-                sAA1_Hours = sAA1.Substring(3, 3);   // 2
-                sAA1_Pcp = sAA1.Substring(5, 5);   // 4
-                sAA1_Trace = sAA1.Substring(9, 2);  // 1
-                sAA1_Fill2 = sAA1.Substring(10, 2); // 1
+                sAA1_Hours = sAA1.Substring(3, 2);   // 2
+                sAA1_Pcp = sAA1.Substring(5, 4);   // 4
+                sAA1_Trace = sAA1.Substring(9, 1);  // 1
+                sAA1_Fill2 = sAA1.Substring(10, 1); // 1
                                                      //                        Console.WriteLine("AA1=["+sAA1+"] Pcp=["+sAA1_Pcp+"]");
                 if (sAA1_Pcp.Equals("9999"))
                     sAA1_Pcp = "";
@@ -1213,10 +1189,10 @@ namespace CSVGenerator
                 //                        Console.WriteLine("DateTime=["+sConcat+"] iAA2_IndexOf=["+iAA2_IndexOf+"] iAA2_Length=["+iAA2_Length+"] Line Length=["+iLength+"]");
                 sAA2 = p_sRecd.Substring(iAA2_IndexOf, iAA2_Length);
                 sAA2_Fill1 = sAA2.Substring(1, 3);   // 3
-                sAA2_Hours = sAA2.Substring(3, 3);   // 2
-                sAA2_Pcp = sAA2.Substring(5, 5);   // 4
-                sAA2_Trace = sAA2.Substring(9, 2);  // 1
-                sAA2_Fill2 = sAA2.Substring(10, 2); // 1
+                sAA2_Hours = sAA2.Substring(3, 2);   // 2
+                sAA2_Pcp = sAA2.Substring(5, 4);   // 4
+                sAA2_Trace = sAA2.Substring(9, 1);  // 1
+                sAA2_Fill2 = sAA2.Substring(10, 1); // 1
                                                      //                        Console.WriteLine("AA2=["+sAA2+"] Pcp=["+sAA2_Pcp+"]");
                 if (sAA2_Pcp.Equals("9999"))
                 {
@@ -1260,10 +1236,10 @@ namespace CSVGenerator
                 //                        Console.WriteLine("DateTime=["+sConcat+"] iAA3_IndexOf=["+iAA3_IndexOf+"] iAA3_Length=["+iAA3_Length+"] Line Length=["+iLength+"]");
                 sAA3 = p_sRecd.Substring(iAA3_IndexOf, iAA3_Length);
                 sAA3_Fill1 = sAA3.Substring(1, 3);   // 3
-                sAA3_Hours = sAA3.Substring(3, 3);   // 2
-                sAA3_Pcp = sAA3.Substring(5, 5);   // 4
-                sAA3_Trace = sAA3.Substring(9, 2);  // 1
-                sAA3_Fill2 = sAA3.Substring(10, 2); // 1
+                sAA3_Hours = sAA3.Substring(3, 2);   // 2
+                sAA3_Pcp = sAA3.Substring(5, 4);   // 4
+                sAA3_Trace = sAA3.Substring(9, 1);  // 1
+                sAA3_Fill2 = sAA3.Substring(10, 1); // 1
                                                      //                        Console.WriteLine("AA3=["+sAA3+"] Pcp=["+sAA3_Pcp+"]");
                 if (sAA3_Pcp.Equals("9999"))
                 {
@@ -1307,10 +1283,10 @@ namespace CSVGenerator
                 //                        Console.WriteLine("DateTime=["+sConcat+"] iAA4_IndexOf=["+iAA4_IndexOf+"] iAA4_Length=["+iAA4_Length+"] Line Length=["+iLength+"]");
                 sAA4 = p_sRecd.Substring(iAA4_IndexOf, iAA4_Length);
                 sAA4_Fill1 = sAA4.Substring(1, 3);   // 3
-                sAA4_Hours = sAA4.Substring(3, 3);   // 2
-                sAA4_Pcp = sAA4.Substring(5, 5);   // 4
-                sAA4_Trace = sAA4.Substring(9, 2);  // 1
-                sAA4_Fill2 = sAA4.Substring(10, 2); // 1
+                sAA4_Hours = sAA4.Substring(3, 2);   // 2
+                sAA4_Pcp = sAA4.Substring(5, 4);   // 4
+                sAA4_Trace = sAA4.Substring(9, 1);  // 1
+                sAA4_Fill2 = sAA4.Substring(10, 1); // 1
                                                      //                        Console.WriteLine("AA4=["+sAA4+"] Pcp=["+sAA4_Pcp+"]");
                 if (sAA4_Pcp.Equals("9999"))
                     sAA4_Pcp = "";
@@ -1402,8 +1378,8 @@ namespace CSVGenerator
             {
                 sAJ1 = p_sRecd.Substring(iAJ1_IndexOf, iAJ1_Length);
                 sAJ1_Fill1 = sAJ1.Substring(1, 3);  // 3
-                sAJ1_Sd = sAJ1.Substring(3, 5);  // 4
-                sAJ1_Fill2 = sAJ1.Substring(7, 11); // 10
+                sAJ1_Sd = sAJ1.Substring(3, 4);  // 4
+                sAJ1_Fill2 = sAJ1.Substring(7, 10); // 10
                                                     //                        Console.WriteLine("AJ1_Fill1=["+sAJ1_Fill1+"] Sd=["+sAJ1_Sd+"]");
                 if (sAJ1_Sd.Equals("9999"))
                     sAJ1_Sd = "";
@@ -1445,8 +1421,8 @@ namespace CSVGenerator
             {
                 sAW1 = p_sRecd.Substring(iAW1_IndexOf, iAW1_Length);
                 sAW1_Fill1 = sAW1.Substring(1, 3);  // 3
-                sAW1_Zz = sAW1.Substring(3, 3);  // 2
-                sAW1_Fill2 = sAW1.Substring(5, 2);  // 1
+                sAW1_Zz = sAW1.Substring(3, 2);  // 2
+                sAW1_Fill2 = sAW1.Substring(5, 1);  // 1
                                                     //            logIt(fDebug, iDEBUG, false, "sInFileName=["+sInFileName+"] DateTime=["+sConcat+"] sAW1_Zz=["+sAW1_Zz+"]");     // temporary - ras
             }
         }  // End of getAW1
@@ -1466,8 +1442,8 @@ namespace CSVGenerator
             {
                 sAW2 = p_sRecd.Substring(iAW2_IndexOf, iAW2_Length);
                 sAW2_Fill1 = sAW2.Substring(1, 3);  // 3
-                sAW2_Zz = sAW2.Substring(3, 3);  // 2
-                sAW2_Fill2 = sAW2.Substring(5, 2);  // 1
+                sAW2_Zz = sAW2.Substring(3, 2);  // 2
+                sAW2_Fill2 = sAW2.Substring(5, 1);  // 1
                                                     //            logIt(fDebug, iDEBUG, false, "sInFileName=["+sInFileName+"] DateTime=["+sConcat+"] sAW2_Zz=["+sAW2_Zz+"]");     // temporary - ras
             }
         }  // End of getAW2
@@ -1487,8 +1463,8 @@ namespace CSVGenerator
             {
                 sAW3 = p_sRecd.Substring(iAW3_IndexOf, iAW3_Length);
                 sAW3_Fill1 = sAW3.Substring(1, 3);  // 3
-                sAW3_Zz = sAW3.Substring(3, 3);  // 2
-                sAW3_Fill2 = sAW3.Substring(5, 2);  // 1
+                sAW3_Zz = sAW3.Substring(3, 2);  // 2
+                sAW3_Fill2 = sAW3.Substring(5, 1);  // 1
                                                     //            logIt(fDebug, iDEBUG, false, "sInFileName=["+sInFileName+"] DateTime=["+sConcat+"] sAW3_Zz=["+sAW3_Zz+"]");     // temporary - ras
             }
         }  // End of getAW3
@@ -1508,8 +1484,8 @@ namespace CSVGenerator
             {
                 sAW4 = p_sRecd.Substring(iAW4_IndexOf, iAW4_Length);
                 sAW4_Fill1 = sAW4.Substring(1, 3);  // 3
-                sAW4_Zz = sAW4.Substring(3, 3);  // 2
-                sAW4_Fill2 = sAW4.Substring(5, 2);  // 1
+                sAW4_Zz = sAW4.Substring(3, 2);  // 2
+                sAW4_Fill2 = sAW4.Substring(5, 1);  // 1
                                                     //          logIt(fDebug, iDEBUG, false, "sInFileName=["+sInFileName+"] DateTime=["+sConcat+"] sAW4_Zz=["+sAW4_Zz+"]");     // temporary - ras
             }
         }  // End of getAW4

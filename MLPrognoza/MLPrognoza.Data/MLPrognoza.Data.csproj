@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FileHelpers, Version=3.2.7.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileHelpers.3.2.7\lib\net45\FileHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -42,13 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileDownloader.cs" />
+    <Compile Include="ISHParser.cs" />
+    <Compile Include="Models\WeatherRecord.cs" />
+    <Compile Include="Models\WeatherStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeatherData.cs" />
+    <Compile Include="Models\WeatherModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSVGenerator\CSVGenerator.csproj">
-      <Project>{fd62eae0-f241-4caa-9d72-1e825afa4f9e}</Project>
-      <Name>CSVGenerator</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
