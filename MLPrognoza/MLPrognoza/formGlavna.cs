@@ -23,7 +23,7 @@ namespace MLPrognoza
         private ICollection<WeatherModel> weatherModelData;
 
         private NeuralNetwork network;
-        private Accord.Controls.Chart chart;
+        private Chart chart;
         private double[,] realTemparatures; 
 
         public formGlavna()
@@ -35,15 +35,14 @@ namespace MLPrognoza
             nodeCounts[0] = nodeCounts[1] = nodeCounts[2] = 20;
             weatherModelData = null;
 
-            chart = new Accord.Controls.Chart();
+            chart = new Chart();
             gbDataChart.Controls.Add(chart);
             chart.AddDataSeries("data", Color.Red, Chart.SeriesType.Line, 1);
             chart.AddDataSeries("solution", Color.Blue, Chart.SeriesType.Line, 1);
             
-            chart.Location = new Point(10, 10);
+            chart.Location = new Point(10, 20);
             chart.Width = gbDataChart.Width - 20;
-            chart.Height=gbDataChart.Height - 20;
-            
+            chart.Height = gbDataChart.Height - 30;
         }
 
         private void formGlavna_Load(object sender, EventArgs e)
@@ -73,9 +72,7 @@ namespace MLPrognoza
             pbDownload.Value = 0;
             gbSettings.Enabled = true;
 
-            realTemparatures = new double[weatherModelData.Count,2];
-
-
+            realTemparatures = new double[weatherModelData.Count, 2];
         }
 
         private void cbLocation_SelectedIndexChanged(object sender, EventArgs e)
@@ -122,30 +119,25 @@ namespace MLPrognoza
             nodeCounts = new int[(int)nudHiddenLayers.Value + 1];
             nodeCounts[nodeCounts.Length - 1] = 1;
         }
-
-        private void gbDataChart_Enter(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void btnStartLearning_Click(object sender, EventArgs e)
         {
-            network = new NeuralNetwork(0,
-                nodeCounts, rbBernoulli.Checked ? FunctionType.BERNOULLI : FunctionType.GAUSSIAN,
+            network = new NeuralNetwork(0, nodeCounts, 
+                rbBernoulli.Checked ? FunctionType.BERNOULLI : FunctionType.GAUSSIAN,
                 (double)nudSigmoidValue.Value);
             network.initData(weatherModelData.ToList());
 
             pbLearning.Minimum = 0;
-            pbLearning.Maximum = (int)nudIterations.Value+1;
+            pbLearning.Maximum = (int)nudIterations.Value + 1;
             for (int i = 0; i < weatherModelData.Count; i++)
             {
-                realTemparatures[i, 1] =network.outputs[i][0].Scale((double)-1, (double)1, (double)-100, (double)100); 
+                realTemparatures[i, 1] = network.outputs[i][0].Scale(-1, 1, -100, 100); 
                 realTemparatures[i, 0] = i;
             }
-            Accord.Range rn = new Accord.Range((float)-100, (float)100);
+            Accord.Range rn = new Accord.Range(-100, 100);
             chart.RangeY = new Accord.Range(rn.Min, rn.Max);
             chart.RangeX = new Accord.Range(0, realTemparatures.Length / 2);
-            network.Train((int)nudIterations.Value, epochEvent,FinnishLearning);
+            network.Train((int)nudIterations.Value, epochEvent, FinishLearning);
 
         }
 
@@ -154,11 +146,12 @@ namespace MLPrognoza
             chart.UpdateDataSeries("data", realTemparatures);
             chart.UpdateDataSeries("solution", epoch);
             chart.Update();
-            lblLearninngData.Text = "Odstupanje: " + error.ToString();
+            lblLearninngData.Text = "Iteracija: " + (pbLearning.Value + 1) + " Odstupanje: " + error.ToString();
             lblLearninngData.Update();
             pbLearning.Value++;
         }
-        public void FinnishLearning()
+
+        public void FinishLearning()
         {
             pbLearning.Value = 0;
         }

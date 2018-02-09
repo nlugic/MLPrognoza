@@ -50,17 +50,12 @@ namespace MLPrognoza.NN
             for (int i = 0; i < data.Count; i++)
             {
                 outputs[i] = new double[1];
-                outputs[i][0] = data[i].Temperature.Scale(-100, 100, (double)-1, (double)1);
+                outputs[i][0] = data[i].Temperature.Scale(-100, 100, -1, 1);
 
                 inputs[i] = new double[4];
-               // inputs[i][0] = data[i].Time.ToOADate().Scale(DateTime.MinValue.ToOADate(),DateTime.MaxValue.ToOADate(), (double)-1, (double)1);
-                inputs[i][0] = data[i].WindSpeed.Scale(0,300, (double)-1, (double)1);
-                inputs[i][1] = data[i].AtmosphericPressure.Scale(500,2000, (double)-1, (double)1);
-
-           
-                inputs[i][2] = data[i].Precipitation[3].Scale(0,1000, (double)-1, (double)1);
-
-                inputs[i][3] = data[i].SnowDepth.Scale(0,3000,(double)-1, (double)1);
+                inputs[i][0] = data[i].WindSpeed.Scale(0, 300, -1, 1);
+                inputs[i][2] = data[i].Precipitation[3].Scale(0, 1000, -1, 1);
+                inputs[i][3] = data[i].SnowDepth.Scale(0, 3000, -1, 1);
             }
         }
 
@@ -69,7 +64,7 @@ namespace MLPrognoza.NN
             new NguyenWidrow(network).Randomize();
             ParallelResilientBackpropagationLearning teacher = new ParallelResilientBackpropagationLearning(network);
 
-            double[,] s = new double[outputs.Length,2];
+            double[,] s = new double[outputs.Length, 2];
             
             int iteration = 1;
             while (true)
@@ -80,7 +75,7 @@ namespace MLPrognoza.NN
                 for (int j = 0; j < outputs.Length; j++)
                 {
                     double y = network.Compute(inputs[j])[0];
-                    s[j,1] = y.Scale((double)-1, (double)1, (double)-100, (double)100);
+                    s[j,1] = y.Scale(-1, 1, -100, 100);
                     s[j, 0] = j;
                 }
                 
@@ -109,15 +104,12 @@ namespace MLPrognoza.NN
         {
             double[] input = new double[4];
 
-           // input[0] = data.Time.ToOADate().Scale(DateTime.MinValue.ToOADate(),DateTime.MaxValue.ToOADate(),-1,1);
-            input[0] = data.WindSpeed.Scale(0, 300, (double)-1, (double)1); 
-            input[1] = data.AtmosphericPressure.Scale(500,2000, (double)-1, (double)1);
+            input[0] = data.WindSpeed.Scale(0, 300, -1, 1); 
+            input[1] = data.AtmosphericPressure.Scale(500, 2000, -1, 1);
+            input[2] = data.Precipitation[3].Scale(0, 1000, -1, 1);
+            input[3] = data.SnowDepth.Scale(0, 3000, -1, 1);
 
-            input[2] = data.Precipitation[3].Scale(0,1000, (double)-1, (double)1);
-
-            input[3] = data.SnowDepth.Scale(0,3000, (double)-1, (double)1);
-
-            return network.Compute(input)[0].Scale(-100,100, (double)-1, (double)1);
+            return network.Compute(input)[0].Scale(-100, 100, -1, 1);
         }
         
     }

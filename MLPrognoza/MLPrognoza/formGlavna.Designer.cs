@@ -147,7 +147,7 @@
             this.gbDataGathering.Size = new System.Drawing.Size(270, 140);
             this.gbDataGathering.TabIndex = 8;
             this.gbDataGathering.TabStop = false;
-            this.gbDataGathering.Text = "Data gathering";
+            this.gbDataGathering.Text = "Prikupljanje podataka";
             // 
             // nudYearStart
             // 
@@ -358,8 +358,7 @@
             this.gbDataChart.Size = new System.Drawing.Size(480, 300);
             this.gbDataChart.TabIndex = 10;
             this.gbDataChart.TabStop = false;
-            this.gbDataChart.Text = "Data visualization";
-            this.gbDataChart.Enter += new System.EventHandler(this.gbDataChart_Enter);
+            this.gbDataChart.Text = "Graficki prikaz podataka";
             // 
             // gbLearningData
             // 
