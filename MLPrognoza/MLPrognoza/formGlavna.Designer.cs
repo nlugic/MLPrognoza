@@ -37,6 +37,7 @@
             this.gbDataGathering = new System.Windows.Forms.GroupBox();
             this.nudYearStart = new System.Windows.Forms.NumericUpDown();
             this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.pbLearning = new System.Windows.Forms.ProgressBar();
             this.btnEditLayers = new System.Windows.Forms.Button();
             this.btnStartLearning = new System.Windows.Forms.Button();
             this.nudHiddenLayers = new System.Windows.Forms.NumericUpDown();
@@ -50,7 +51,6 @@
             this.rbGaussian = new System.Windows.Forms.RadioButton();
             this.gbDataChart = new System.Windows.Forms.GroupBox();
             this.gbLearningData = new System.Windows.Forms.GroupBox();
-            this.pbLearning = new System.Windows.Forms.ProgressBar();
             this.lblLearninngData = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudYearEnd)).BeginInit();
             this.gbDataGathering.SuspendLayout();
@@ -193,6 +193,13 @@
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Podesavanja";
             // 
+            // pbLearning
+            // 
+            this.pbLearning.Location = new System.Drawing.Point(20, 210);
+            this.pbLearning.Name = "pbLearning";
+            this.pbLearning.Size = new System.Drawing.Size(230, 15);
+            this.pbLearning.TabIndex = 12;
+            // 
             // btnEditLayers
             // 
             this.btnEditLayers.Location = new System.Drawing.Point(20, 170);
@@ -211,6 +218,7 @@
             this.btnStartLearning.TabIndex = 10;
             this.btnStartLearning.Text = "Zapocni ucenje";
             this.btnStartLearning.UseVisualStyleBackColor = true;
+            this.btnStartLearning.Click += new System.EventHandler(this.btnStartLearning_Click);
             // 
             // nudHiddenLayers
             // 
@@ -351,6 +359,7 @@
             this.gbDataChart.TabIndex = 10;
             this.gbDataChart.TabStop = false;
             this.gbDataChart.Text = "Data visualization";
+            this.gbDataChart.Enter += new System.EventHandler(this.gbDataChart_Enter);
             // 
             // gbLearningData
             // 
@@ -361,13 +370,6 @@
             this.gbLearningData.TabIndex = 11;
             this.gbLearningData.TabStop = false;
             this.gbLearningData.Text = "Podaci o ucenju";
-            // 
-            // pbLearning
-            // 
-            this.pbLearning.Location = new System.Drawing.Point(20, 210);
-            this.pbLearning.Name = "pbLearning";
-            this.pbLearning.Size = new System.Drawing.Size(230, 15);
-            this.pbLearning.TabIndex = 12;
             // 
             // lblLearninngData
             // 
