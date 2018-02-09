@@ -15,9 +15,16 @@ namespace MLPrognoza
 {
     public partial class formGlavna : Form
     {
+
+        private int[] nodeCounts;
+        private ICollection<WeatherModel> weatherModelData;
+        
         public formGlavna()
         {
             InitializeComponent();
+
+            nodeCounts = new int[(int)nudHiddenLayers.Value];
+            weatherModelData = null;
         }
 
         private void formGlavna_Load(object sender, EventArgs e)
@@ -31,14 +38,13 @@ namespace MLPrognoza
         {
             WeatherStation selectedStation = cbLocation.SelectedValue as WeatherStation;
             string stationName = selectedStation.USAF.ToString() + '-' + selectedStation.WBAN.ToString();
-            ICollection<string> downloadedFiles = FileDownloader.DownloadWeatherData((int)nudYearStart.Value, (int)nudYearEnd.Value, stationName, pbDownload);
 
-            ICollection<WeatherModel> weatherModelData = null;
+            ICollection<string> downloadedFiles = FileDownloader.DownloadWeatherData((int)nudYearStart.Value, (int)nudYearEnd.Value, stationName, pbDownload);
 
             Thread worker = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-
+                
                 weatherModelData = WeatherData.GetWeatherModelData(downloadedFiles);
             });
 
@@ -46,8 +52,7 @@ namespace MLPrognoza
             worker.Join();
 
             pbDownload.Value = 0;
-
-            // nastavak obrade podataka tj kalemljenje neuronske mreze
+            gbSettings.Enabled = true;
         }
 
         private void cbLocation_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,6 +84,19 @@ namespace MLPrognoza
         private void nudYearEnd_ValueChanged(object sender, EventArgs e)
         {
             nudYearStart.Maximum = nudYearEnd.Value;
+        }
+
+        private void btnEditLayers_Click(object sender, EventArgs e)
+        {
+            formSlojeviMreze frm = new formSlojeviMreze((int)nudHiddenLayers.Value);
+
+            if (frm.ShowDialog() == DialogResult.Yes)
+                nodeCounts = frm.NodeCounts;
+        }
+
+        private void nudHiddenLayers_ValueChanged(object sender, EventArgs e)
+        {
+            nodeCounts = new int[(int)nudHiddenLayers.Value];
         }
     }
 }
