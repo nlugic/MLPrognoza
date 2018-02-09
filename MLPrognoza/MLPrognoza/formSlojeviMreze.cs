@@ -13,11 +13,12 @@ namespace MLPrognoza
         {
             get
             {
-                int[] counts = new int[layersNumber];
+                int[] counts = new int[layersNumber + 1];
 
                 for (int i = 0; i < layersNumber; ++i)
                     counts[i] = slojevi[i].NodeCount;
 
+                counts[layersNumber] = 1;
                 return counts;
             }
         }
